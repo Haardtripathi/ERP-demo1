@@ -1,156 +1,137 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Dropdown = require('../../models/dropdowns')
-const Workbook=require('../../models/workbook')
-const Incoming=require('../../models/incoming')
+const Dropdown = require("../../models/dropdowns");
+const Workbook = require("../../models/workbook");
+const Incoming = require("../../models/incoming");
 
-exports.getAddIncomingData=(req, res,next)=>{
-    Dropdown.find()
+exports.getAddIncomingData = (req, res, next) => {
+  Dropdown.find()
     .then((data) => {
-        // console.log(data)
-        data.map(item => ({
-            name: item.name,
-            values: item.values
-        }));
-        return data
+      // console.log(data)
+      data.map((item) => ({
+        name: item.name,
+        values: item.values,
+      }));
+      return data;
     })
     .then((data) => {
-        // console.log(data)
-        res.render('workbook/addIncomingData',{dropdowns: data})
-
+      // console.log(data)
+      res.render("workbook/addIncomingData", { dropdowns: data });
     })
     .catch((err) => {
-        console.log(err)
-    })
-}
+      console.log(err);
+    });
+};
 
-exports.postAddIncomingData=(req, res, next)=>{
-    const data_dd_id=new mongoose.Types.ObjectId(req.body.data_dd_id)
-    const source=req.body.Source
-    const source_dd_id=new mongoose.Types.ObjectId(req.body.source_dd_id)
-    const cm_firstname=req.body.cmFirstName
-    const cm_lastname=req.body.cmLastName
-    const cm_phone=req.body.cmphone
-    const cm_altername_number=req.body.cmPhoneAlternateNumber
-    const agent_name=req.body['Agent Name']
-    const agent_dd_id=new mongoose.Types.ObjectId(req.body.agent_dd_id)
-    const language=req.body.Language
-    const language_dd_id=new mongoose.Types.ObjectId(req.body.language_dd_id)
-    const disease=req.body.Disease
-    const disease_dd_id=new mongoose.Types.ObjectId(req.body.disease_dd_id)
-    const age=req.body.age
-    const height=req.body.height
-    const weight=req.body.weight
-    const state=req.body.State
-    const state_dd_id=new mongoose.Types.ObjectId(req.body.state_dd_id)
-    const city=req.body.city
-    const remark = req.body.Remark
-    const remark_dd_id=new mongoose.Types.ObjectId(req.body.remark_dd_id)
-    const comment=req.body.comment
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    const incomingData=new Incoming({
-        source:{
-            dropdown_data:source_dd_id,
-            value:source
-        },
-        date:Date.now(),
-        CM_First_Name:cm_firstname,
-        CM_Last_Name:cm_lastname,
-        CM_Phone:cm_phone,
-        alternate_Number:cm_altername_number,
-        agent_name:{
-            dropdown_data:agent_dd_id,
-            value:agent_name
-        },
-        language:{
-            dropdown_data:language_dd_id,
-            value:language
-        },
-        disease:{
-            dropdown_data:disease_dd_id,
-            value:disease
-        },
-        age:age,
-        height:height,
-        weight:weight,
-        state:{
-            dropdown_data:state_dd_id,
-            value:state
-        },
-        city:city,
-        remark:{
-            dropdown_data:remark_dd_id,
-            value:remark
-        },
-        comment:comment
-    })
+exports.postAddIncomingData = (req, res, next) => {
+  const commonFields = {
+    source: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
+      value: req.body.Source,
+    },
+    date: Date.now(),
+    CM_First_Name: req.body.cmFirstName,
+    CM_Last_Name: req.body.cmLastName,
+    CM_Phone: req.body.cmphone,
+    alternate_Number: req.body.cmPhoneAlternateNumber,
+    agent_name: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
+      value: req.body["Agent Name"],
+    },
+    language: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.language_dd_id),
+      value: req.body.Language,
+    },
+    disease: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.disease_dd_id),
+      value: req.body.Disease,
+    },
+    age: req.body.age,
+    height: req.body.height,
+    weight: req.body.weight,
+    state: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.state_dd_id),
+      value: req.body.State,
+    },
+    city: req.body.city,
+    remark: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.remark_dd_id),
+      value: req.body.Remark,
+    },
+    comment: req.body.comment,
+  };
 
-    incomingData.save()
-    .then((result)=>{
-        console.log("Saved in incoming")
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
+  const incomingData = new Incoming(commonFields);
 
-    const workbookData=new Workbook({
-        data:{
-            dropdown_data:data_dd_id,
-            value:"Incoming"
-        },
-        date:Date.now(),
-        source:{
-            dropdown_data:source_dd_id,
-            value:source
-        },
-        CM_First_Name:cm_firstname,
-        CM_Last_Name:cm_lastname,
-        CM_Phone:cm_phone,
-        alternate_Number:cm_altername_number,
-        agent_name:{
-            dropdown_data:agent_dd_id,
-            value:agent_name
-        },
-        language:{
-            dropdown_data:language_dd_id,
-            value:language
-        },
-        disease:{
-            dropdown_data:disease_dd_id,
-            value:disease
-        },
-        age:age,
-        height:height,
-        weight:weight,
-        state:{
-            dropdown_data:state_dd_id,
-            value:state
-        },
-        city:city,
-        remark:{
-            dropdown_data:remark_dd_id,
-            value:remark
-        },
-        comment:comment
-    })
-    workbookData.save()
-    .then((result)=>{
-        res.redirect('/workbook')
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-}
+  incomingData
+    .save()
+    .then((result) => {
+      console.log("Saved in incoming");
 
-
-exports.getIncomingData=(req,res,next)=>{
-    Incoming.find()
-    .then((data)=>{
-        // console.log(data)
-    res.render('workbook/incoming',{data:data})
-
+      return incomingData._id;
     })
-    .catch((error)=>{
-        console.log(error)
+    .then((DataId) => {
+      const workbookData = new Workbook({
+        data: {
+          dropdown_data: new mongoose.Types.ObjectId(req.body.data_dd_id),
+          value: "Incoming",
+        },
+        date: Date.now(),
+        dataId: DataId,
+        ...commonFields,
+      });
+
+      return workbookData.save();
     })
-}
+    .then((result) => {
+      res.redirect("/incoming");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+exports.getIncomingData = (req, res, next) => {
+  Incoming.find({ isDeleted: false })
+    .then((data) => {
+      // console.log(data)
+      res.render("workbook/incoming", { data: data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+exports.deleteIncomingItem = (req, res, next) => {
+  const dataId = req.body.dataId;
+
+  // Ensure dataId is not an empty string or invalid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(dataId)) {
+    console.error("Invalid dataId:", dataId);
+    return res.status(400).send("Invalid dataId");
+  }
+
+  const objectId = new mongoose.Types.ObjectId(dataId);
+
+  // Update the Incoming document to mark as deleted
+  Incoming.updateOne({ _id: objectId }, { isDeleted: true })
+    .then(() => {
+      console.log("Incoming item deleted");
+      // Update the Workbook document to mark as deleted
+      return Workbook.updateOne({ dataId: objectId }, { isDeleted: true });
+    })
+    .then(() => {
+      console.log("Deleted workbook item");
+      res.redirect("/workbook");
+    })
+    .catch((error) => {
+      console.error("Error during deletion:", error);
+      res.status(500).send("An error occurred");
+    });
+};

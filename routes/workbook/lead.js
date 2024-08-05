@@ -1,15 +1,15 @@
-const express=require('express')
+const express = require("express");
 
-const router=express.Router()
+const router = express.Router();
 
+const leadController = require("../../controllers/workbook/lead");
 
-const incomingController=require('../../controllers/workbook/lead')
+router.get("/addLeadData", leadController.getAddLeadData);
 
-router.get('/addLeadData',incomingController.getAddLeadData)
+router.post("/addLeadData", leadController.postAddLeadData);
 
-router.post('/addLeadData',incomingController.postAddLeadData)
+router.get("/lead", leadController.getLeadData);
 
-// router.get('/incoming',incomingController.getIncomingData)
-
+router.post("/deleteLeadItem", leadController.deleteLeadItem);
 
 module.exports = router;

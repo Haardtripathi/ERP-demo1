@@ -16,78 +16,138 @@ exports.getAddLeadData = (req, res, next) => {
 };
 
 exports.postAddLeadData = (req, res, next) => {
-  console.log("abc");
   const file = req.file;
+  const staticDropdownData = {
+    source: "669258512f5aaf7d9cb3cd56",
+    agent_name: "6692586f2f5aaf7d9cb3cd58",
+    language: "669258992f5aaf7d9cb3cd5a",
+    disease: "669258db2f5aaf7d9cb3cd5c",
+    state: "6692594c2f5aaf7d9cb3cd5e",
+    remark: "669259862f5aaf7d9cb3cd60",
+  };
+
   csv()
     .fromFile(`public/files/${file.filename}`)
     .then((jsonObj) => {
-      // console.log(jsonObj[0]['Date'])
-      // const newLead=new Lead({
-      //     date:jsonObj.Date,
-      // })
-      for (let i = 0; i < jsonObj.length; i++) {
-        const date = Date.now();
-        const source = jsonObj[i]["Source"];
-        const cm_firstname = jsonObj[i]["CM First Name"];
-        const cm_lastname = jsonObj[i]["CM Last Name"];
-        const cm_phone = jsonObj[i]["CM Phone"];
-        const agent_name = jsonObj[i]["Agent Name"];
-        const language = jsonObj[i]["Language"];
-        const disease = jsonObj[i]["Disease"];
-        const age = jsonObj[i]["Age"];
-        const height = jsonObj[i]["Height"];
-        const weight = jsonObj[i]["Weight"];
-        const state = jsonObj[i]["State"];
-        const city = jsonObj[i]["City/District"];
-        const remark = jsonObj[i]["Remark"];
-        const comment = jsonObj[i]["Comment"];
-        // const newLead=new Lead({
-        //     source:{
-        //         dropdown_data:'669258512f5aaf7d9cb3cd56',
-        //         value:source
-        //     },
-        //     CM_First_Name:cm_firstname,
-        //     CM_Last_Name:cm_lastname,
-        //     CM_Phone:cm_phone,
-        //     alternate_Number:cm_altername_number,
-        //     agent_name:{
-        //         dropdown_data:agent_dd_id,
-        //         value:agent_name
-        //     },
-        //     language:{
-        //         dropdown_data:language_dd_id,
-        //         value:language
-        //     },
-        //     disease:{
-        //         dropdown_data:disease_dd_id,
-        //         value:disease
-        //     },
-        //     age:age,
-        //     height:height,
-        //     weight:weight,
-        //     state:{
-        //         dropdown_data:state_dd_id,
-        //         value:state
-        //     },
-        //     city:city,
-        //     remark:{
-        //         dropdown_data:remark_dd_id,
-        //         value:remark
-        //     },
-        //     comment:comment
-        // })
-        // let dateObj=new Date(date+"T00:00:00")
-        // const formatter = new Intl.DateTimeFormat('en-GB', {
-        //     day: '2-digit',
-        //     month: '2-digit',
-        //     year: 'numeric'
-        // });
+      const savePromises = jsonObj.map((item) => {
+        const commonFields = {
+          source: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.source
+            ),
+            value: item["Source"],
+          },
+          date: Date.now(),
+          CM_First_Name: item["CM First Name"],
+          CM_Last_Name: item["CM Last Name"],
+          CM_Phone: item["CM Phone"],
+          alternate_Number: item["Alternate Number"],
+          agent_name: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.agent_name
+            ),
+            value: item["Agent Name"],
+          },
+          language: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.language
+            ),
+            value: item["Language"],
+          },
+          disease: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.disease
+            ),
+            value: item["Disease"],
+          },
+          age: item["Age"],
+          height: item["Height"],
+          weight: item["Weight"],
+          state: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.state
+            ),
+            value: item["State"],
+          },
+          city: item["City/District"],
+          remark: {
+            dropdown_data: new mongoose.Types.ObjectId(
+              staticDropdownData.remark
+            ),
+            value: item["Remark"],
+          },
+          comment: item["Comment"],
+        };
 
-        // const formattedDate = formatter.format(dateObj);
-        // console.log(formattedDate);
+        const leadData = new Lead(commonFields);
 
-        console.log(source,cm_phone,agent_name,language,age,height
-        );
-      }
+        return leadData.save().then((savedLead) => {
+          // Save to Workbook collection
+          const workbookData = new Workbook({
+            data: {
+              dropdown_data: new mongoose.Types.ObjectId(req.body.data_dd_id), // Assuming data_dd_id is part of the request
+              value: "Lead",
+            },
+            date: Date.now(),
+            dataId: savedLead._id,
+            ...commonFields,
+          });
+
+          return workbookData.save();
+        });
+      });
+
+      // Wait for all operations to complete
+      Promise.all(savePromises)
+        .then(() => {
+          res.redirect("/incoming"); // Redirect after processing all entries
+        })
+        .catch((error) => {
+          console.log("Error processing data:", error);
+          res.status(500).send("Error processing data");
+        });
+    })
+    .catch((error) => {
+      console.log("Error processing CSV file:", error);
+      res.status(500).send("Error processing file");
+    });
+};
+
+exports.getLeadData = (req, res, next) => {
+  Lead.find({ isDeleted: false })
+    .then((data) => {
+      // console.log(data)
+      res.render("workbook/lead", { data: data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+exports.deleteLeadItem = (req, res, next) => {
+  const dataId = req.body.dataId;
+
+  // Ensure dataId is not an empty string or invalid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(dataId)) {
+    console.error("Invalid dataId:", dataId);
+    return res.status(400).send("Invalid dataId");
+  }
+
+  const objectId = new mongoose.Types.ObjectId(dataId);
+
+  // Update the Incoming document to mark as deleted
+  Lead.updateOne({ _id: objectId }, { isDeleted: true })
+    .then(() => {
+      console.log("Lead item deleted");
+      // Update the Workbook document to mark as deleted
+      return Workbook.updateOne({ dataId: objectId }, { isDeleted: true });
+    })
+    .then(() => {
+      console.log("Deleted workbook item");
+      res.redirect("/workbook");
+    })
+    .catch((error) => {
+      console.error("Error during deletion:", error);
+      res.status(500).send("An error occurred");
     });
 };

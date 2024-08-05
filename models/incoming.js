@@ -109,7 +109,7 @@ const incomingSchema = new Schema({
         type: String,
         required: true,
     },
-    isClosed: {
+    isDeleted: {
         type: Boolean,
         default: 0 // Set default to 0 (closed)
     },

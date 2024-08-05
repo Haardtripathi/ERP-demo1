@@ -38,7 +38,7 @@
               </li>
             </ul>
             <form class="d-flex" role="search">
-              <a class="btn btn-outline-success" href="/addIncomingData">Add new</a>
+              <a class="btn btn-outline-success" href="/addLeadData">Add new</a>
             </form>
           </div>
         </div>
@@ -55,10 +55,10 @@
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" href="/incoming">Incoming</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link active" href="/lead">Lead</a>
-                        </li>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" href="/lead">Lead</a>
+                      </li>
                     </ul>
                 </div>
             </nav>
@@ -105,7 +105,7 @@
                                     <td><%= d.remark.value%></td>
                                     <td><%= d.comment %></td>
                                     <td>
-                                        <form action="/deleteIncomingItem" method="POST">
+                                        <form action="/deleteLeadItem" method="POST">
                                             <input type="hidden" value="<%= d._id %>" name="dataId">
                                             <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
                                         </form>

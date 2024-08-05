@@ -16,13 +16,14 @@ const workbookSchema = new Schema({
         },
         required:true,
     },
+    dataId:{
+        type: Schema.Types.ObjectId,
+    },
     date:{
         type: Schema.Types.Date,
         default:Date.now(),
     },
-    sourceId:{
-        type: Schema.Types.ObjectId,
-    },
+    
     source:{
         type: Object,
         dropdown_data:{
@@ -124,9 +125,9 @@ const workbookSchema = new Schema({
         type: String,
         required: true,
     },
-    isClosed: {
+    isDeleted: {
         type: Boolean,
-        default: 0 // Set default to 0 (closed)
+        default: false // Set default to 0 (closed)
     },
     status: {
         type: Number,

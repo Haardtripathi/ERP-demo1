@@ -56,6 +56,9 @@
                         <li class="nav-item">
                           <a class="nav-link active" href="/incoming">Incoming</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" href="/lead">Lead</a>
+                      </li>
                     </ul>
                 </div>
             </nav>
@@ -105,7 +108,8 @@
                                     <td><%= d.comment %></td>
                                     <td>
                                         <form action="/deleteWorkbookItem" method="POST">
-                                            <input type="hidden" value="<%= d._id %>" name="dataId">
+                                            <input type="hidden" value="<%= d._id %>" name="itemId">
+                                            <input type="hidden" value="<%= d.dataId %>" name="dataId">
                                             <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
                                         </form>
                                     </td>

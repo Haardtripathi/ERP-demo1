@@ -36,142 +36,104 @@ exports.getAddWorkbookData=(req,res,next) => {
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+exports.postAddWorkbookData = (req, res, next) => {
+    const data = req.body.Data;
+    const commonFields = {
+        source: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
+            value: req.body.Source
+        },
+        date: Date.now(),
+        CM_First_Name: req.body.cmFirstName,
+        CM_Last_Name: req.body.cmLastName,
+        CM_Phone: req.body.cmphone,
+        alternate_Number: req.body.cmPhoneAlternateNumber,
+        agent_name: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
+            value: req.body['Agent Name']
+        },
+        language: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.language_dd_id),
+            value: req.body.Language
+        },
+        disease: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.disease_dd_id),
+            value: req.body.Disease
+        },
+        age: req.body.age,
+        height: req.body.height,
+        weight: req.body.weight,
+        state: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.state_dd_id),
+            value: req.body.State
+        },
+        city: req.body.city,
+        remark: {
+            dropdown_data: new mongoose.Types.ObjectId(req.body.remark_dd_id),
+            value: req.body.Remark
+        },
+        comment: req.body.comment
+    };
 
-exports.postAddWorkbookData = (req, res,next) => {
-    const data=req.body.Data
-    const data_dd_id=new mongoose.Types.ObjectId(req.body.data_dd_id)
-    const source=req.body.Source
-    const source_dd_id=new mongoose.Types.ObjectId(req.body.source_dd_id)
-    const cm_firstname=req.body.cmFirstName
-    const cm_lastname=req.body.cmLastName
-    const cm_phone=req.body.cmphone
-    const cm_altername_number=req.body.cmPhoneAlternateNumber
-    const agent_name=req.body['Agent Name']
-    const agent_dd_id=new mongoose.Types.ObjectId(req.body.agent_dd_id)
-    const language=req.body.Language
-    const language_dd_id=new mongoose.Types.ObjectId(req.body.language_dd_id)
-    const disease=req.body.Disease
-    const disease_dd_id=new mongoose.Types.ObjectId(req.body.disease_dd_id)
-    const age=req.body.age
-    const height=req.body.height
-    const weight=req.body.weight
-    const state=req.body.State
-    const state_dd_id=new mongoose.Types.ObjectId(req.body.state_dd_id)
-    const city=req.body.city
-    const remark = req.body.Remark
-    const remark_dd_id=new mongoose.Types.ObjectId(req.body.remark_dd_id)
-    const comment=req.body.comment
+    const saveWorkbookData = (Data_ID) => {
+        const workbookData = new Workbook({
+            data: {
+                dropdown_data: new mongoose.Types.ObjectId(req.body.data_dd_id),
+                value: data
+            },
+            date: Date.now(),
+            source: commonFields.source,
+            dataId: Data_ID,
+            CM_First_Name: commonFields.CM_First_Name,
+            CM_Last_Name: commonFields.CM_Last_Name,
+            CM_Phone: commonFields.CM_Phone,
+            alternate_Number: commonFields.alternate_Number,
+            agent_name: commonFields.agent_name,
+            language: commonFields.language,
+            disease: commonFields.disease,
+            age: commonFields.age,
+            height: commonFields.height,
+            weight: commonFields.weight,
+            state: commonFields.state,
+            city: commonFields.city,
+            remark: commonFields.remark,
+            comment: commonFields.comment
+        });
 
-    let Data_ID;
-    if(data=="Incoming"){
-        
-        const incomingData=new Incoming({
-            source:{
-                dropdown_data:source_dd_id,
-                value:source
-            },
-            date:Date.now(),
-            CM_First_Name:cm_firstname,
-            CM_Last_Name:cm_lastname,
-            CM_Phone:cm_phone,
-            alternate_Number:cm_altername_number,
-            agent_name:{
-                dropdown_data:agent_dd_id,
-                value:agent_name
-            },
-            language:{
-                dropdown_data:language_dd_id,
-                value:language
-            },
-            disease:{
-                dropdown_data:disease_dd_id,
-                value:disease
-            },
-            age:age,
-            height:height,
-            weight:weight,
-            state:{
-                dropdown_data:state_dd_id,
-                value:state
-            },
-            city:city,
-            remark:{
-                dropdown_data:remark_dd_id,
-                value:remark
-            },
-            comment:comment
-        })
-        incomingData.save()
-        .then((result)=>{
-            Data_ID=incomingData._id
-            console.log(Data_ID)
-            console.log("saved incoming")
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+        workbookData.save()
+            .then(() => {
+                res.redirect('/workbook');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const saveData = (Model) => {
+        const dataInstance = new Model(commonFields);
+        dataInstance.save()
+            .then((result) => {
+                const Data_ID = result._id;
+                saveWorkbookData(Data_ID);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    if (data === "Incoming") {
+        saveData(Incoming);
+    } else {
+        saveData(Lead);
     }
-
-    const workbookData=new Workbook({
-        data:{
-            dropdown_data:data_dd_id,
-            value:data
-        },
-        date:Date.now(),
-        source:{
-            dropdown_data:source_dd_id,
-            value:source
-        },
-        sourceId:Data_ID,
-        CM_First_Name:cm_firstname,
-        CM_Last_Name:cm_lastname,
-        CM_Phone:cm_phone,
-        alternate_Number:cm_altername_number,
-        agent_name:{
-            dropdown_data:agent_dd_id,
-            value:agent_name
-        },
-        language:{
-            dropdown_data:language_dd_id,
-            value:language
-        },
-        disease:{
-            dropdown_data:disease_dd_id,
-            value:disease
-        },
-        age:age,
-        height:height,
-        weight:weight,
-        state:{
-            dropdown_data:state_dd_id,
-            value:state
-        },
-        city:city,
-        remark:{
-            dropdown_data:remark_dd_id,
-            value:remark
-        },
-        comment:comment
-    })
-    console.log(data)
-    
-
-    workbookData.save()
-    .then((result)=>{
-        res.redirect('/workbook')
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-}
-
+};
 
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 exports.getWorkbook=(req,res,next) => {
-    Workbook.find()
+    Workbook.find({isDeleted:false})
     .then((data)=>{
         // console.log(data)
     res.render('workbook/workbook',{data:data})
@@ -188,15 +150,16 @@ exports.getWorkbook=(req,res,next) => {
 
 exports.deleteWorkbookItem=(req, res, next) =>{
     const dataId=req.body.dataId
+    const itemId=req.body.itemId
 
-    Incoming.deleteOne({_id:dataId})
+    Incoming.updateOne({_id:dataId},{isDeleted:true})
     .then(()=>{
         console.log('incoming deleted')
     })
     .catch((error)=>{
         console.log(error)
     })
-    Workbook.deleteOne({_id:dataId})
+    Workbook.updateOne({_id:itemId},{isDeleted:true})
     .then(()=>{
         console.log('Deleted workbook item')
         res.redirect('/workbook')
