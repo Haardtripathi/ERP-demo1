@@ -1,0 +1,37 @@
+{
+  "name": "erp_demo1",
+  "version": "1.0.0",
+  "description": "Demo1 for ERP System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaardTripathi/erp_demo1.git"
+  },
+  "author": "Haard Tripathi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaardTripathi/erp_demo1/issues"
+  },
+  "homepage": "https://github.com/HaardTripathi/erp_demo1#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^2.4.1",
+    "csurf": "^1.11.0",
+    "csv-parser": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "ejs": "^3.1.10",
+    "erp_demo1": "file:",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "papaparse": "^5.4.1",
+    "path": "^0.12.7"
+  }
+}
