@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Dropdown = require('../../models/dropdowns')
 const Workbook=require('../../models/workbook');
 const Incoming = require('../../models/incoming');
+const Lead=require('../../models/lead')
 
 exports.getIndex=(req,res,next) =>{
     res.render('workbook/index')
@@ -47,7 +48,7 @@ exports.postAddWorkbookData = (req, res, next) => {
         CM_First_Name: req.body.cmFirstName,
         CM_Last_Name: req.body.cmLastName,
         CM_Phone: req.body.cmphone,
-        alternate_Number: req.body.cmPhoneAlternateNumber,
+        alternative_Number: req.body.cmPhoneAlternateNumber,
         agent_name: {
             dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
             value: req.body['Agent Name']
@@ -87,7 +88,7 @@ exports.postAddWorkbookData = (req, res, next) => {
             CM_First_Name: commonFields.CM_First_Name,
             CM_Last_Name: commonFields.CM_Last_Name,
             CM_Phone: commonFields.CM_Phone,
-            alternate_Number: commonFields.alternate_Number,
+            alternative_Number: commonFields.alternate_Number,
             agent_name: commonFields.agent_name,
             language: commonFields.language,
             disease: commonFields.disease,
@@ -151,14 +152,28 @@ exports.getWorkbook=(req,res,next) => {
 exports.deleteWorkbookItem=(req, res, next) =>{
     const dataId=req.body.dataId
     const itemId=req.body.itemId
+    const dataName=req.body.dataName
 
-    Incoming.updateOne({_id:dataId},{isDeleted:true})
+    if(dataName=="Lead"){
+        Lead.updateOne({_id:dataId},{isDeleted:true})
+        .then(()=>{
+            console.log('incoming deleted')
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+    }
+    else{
+        Incoming.updateOne({_id:dataId},{isDeleted:true})
     .then(()=>{
         console.log('incoming deleted')
     })
     .catch((error)=>{
         console.log(error)
     })
+    }
+
+    
     Workbook.updateOne({_id:itemId},{isDeleted:true})
     .then(()=>{
         console.log('Deleted workbook item')

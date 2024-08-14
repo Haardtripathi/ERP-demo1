@@ -14,7 +14,7 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     dataId:{
         type: Schema.Types.ObjectId,
@@ -33,19 +33,19 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     CM_First_Name:{
         type: String,
-        required: true,
+        
     },
     CM_Last_Name:{
         type: String,
-        required: true,
+        
     },
     CM_Phone:{
         type: Number,
-        required: true,
+        
     },
     alternative_Number:{
         type: Number
@@ -59,7 +59,7 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     language:{
         type: Object,
@@ -70,7 +70,7 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     disease:{
         type: Object,
@@ -81,19 +81,19 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     age:{
         type: Number,
-        required: true,
+        
     },
     height:{
         type: Number,
-        required: true,
+        
     },
     weight:{
         type: Number,
-        required: true,
+        
     },
     state:{
         type: Object,
@@ -104,11 +104,11 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     city:{
         type: String,
-        required: true,
+        
     },
     remark:{
         type: Object,
@@ -119,11 +119,11 @@ const workbookSchema = new Schema({
         value:{
             type: String,
         },
-        required:true,
+        
     },
     comment:{
         type: String,
-        required: true,
+        
     },
     isDeleted: {
         type: Boolean,

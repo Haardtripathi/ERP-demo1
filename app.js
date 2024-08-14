@@ -8,7 +8,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
-
+require("dotenv").config()
 
 const memoryStorage = multer.memoryStorage(); // Store data in memory
 
@@ -23,7 +23,7 @@ const fileStorage = multer.diskStorage({
     }
   });
 
-const MONGODB_URI ='mongodb+srv://haardtripathi14:1231@erp-demo-1.6zq7osg.mongodb.net/erp1'
+const MONGODB_URI =process.env.MONGODB_URL
 
 const adminRoutes= require('./routes/admin')
 const workbookRoutes= require('./routes/workbook/workbook')

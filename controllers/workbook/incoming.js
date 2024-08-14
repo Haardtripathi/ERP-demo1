@@ -35,7 +35,7 @@ exports.postAddIncomingData = (req, res, next) => {
     CM_First_Name: req.body.cmFirstName,
     CM_Last_Name: req.body.cmLastName,
     CM_Phone: req.body.cmphone,
-    alternate_Number: req.body.cmPhoneAlternateNumber,
+    alternative_Number: req.body.cmPhoneAlternateNumber,
     agent_name: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
       value: req.body["Agent Name"],

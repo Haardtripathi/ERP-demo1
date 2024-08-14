@@ -12,4 +12,8 @@ router.get("/lead", leadController.getLeadData);
 
 router.post("/deleteLeadItem", leadController.deleteLeadItem);
 
+router.get("/EditLeadItem/:id",leadController.getEditLeadItem)
+
+router.post("/EditLeadItem/",leadController.postEditLeadItem)
+
 module.exports = router;

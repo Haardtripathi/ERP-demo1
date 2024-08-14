@@ -13,7 +13,7 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     date:{
         type: Schema.Types.Date,
@@ -21,15 +21,15 @@ const leadSchema = new Schema({
     },
     CM_First_Name:{
         type: String,
-        required: true,
+        
     },
     CM_Last_Name:{
         type: String,
-        required: true,
+        
     },
     CM_Phone:{
         type: Number,
-        required: true,
+        
     },
     alternative_Number:{
         type: Number
@@ -43,7 +43,7 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     language:{
         type: Object,
@@ -54,7 +54,7 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     disease:{
         type: Object,
@@ -65,19 +65,19 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     age:{
         type: Number,
-        required: true,
+        
     },
     height:{
         type: Number,
-        required: true,
+        
     },
     weight:{
         type: Number,
-        required: true,
+        
     },
     state:{
         type: Object,
@@ -88,11 +88,11 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     city:{
         type: String,
-        required: true,
+        
     },
     remark:{
         type: Object,
@@ -103,11 +103,11 @@ const leadSchema = new Schema({
         value:{
             type: String,
         },
-        //required:true,
+        //
     },
     comment:{
         type: String,
-        required: true,
+        
     },
     isDeleted: {
         type: Boolean,
