@@ -13,13 +13,11 @@ const csv = require("csvtojson");
 const lead = require("../../models/lead");
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 exports.getAddLeadData = (req, res, next) => {
   res.render("workbook/addLeadData");
 };
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 exports.postAddLeadData = (req, res, next) => {
   const file = req.file;
@@ -47,11 +45,7 @@ exports.postAddLeadData = (req, res, next) => {
           CM_First_Name: item["CM First Name"],
           CM_Last_Name: item["CM Last Name"],
           CM_Phone: item["CM Phone"],
-<<<<<<< HEAD
           alternate_Phone: item["Alternate Number"],
-=======
-          alternative_Number: item["Alternate Number"],
->>>>>>> 83f68cf8538f055cf98ff4efb86cdea671502947
           agent_name: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.agent_name
@@ -116,7 +110,6 @@ exports.postAddLeadData = (req, res, next) => {
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 exports.getLeadData = (req, res, next) => {
   Lead.find({ isDeleted: false })
     .then((data) => {
@@ -128,9 +121,7 @@ exports.getLeadData = (req, res, next) => {
     });
 };
 
-
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 exports.deleteLeadItem = (req, res, next) => {
   const dataId = req.body.dataId;
@@ -160,11 +151,10 @@ exports.deleteLeadItem = (req, res, next) => {
     });
 };
 
-
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-exports.getEditLeadItem=(req,res,next)=>{
-  const itemId= req.params.id
+exports.getEditLeadItem = (req, res, next) => {
+  const itemId = req.params.id;
   // console.log(itemId)
   Dropdown.find()
     .then((data) => {
@@ -177,10 +167,13 @@ exports.getEditLeadItem=(req,res,next)=>{
     })
     .then((data) => {
       // console.log(data)
-      Lead.findOne({_id:itemId})
-        .then((leadData)=>{
-          console.log(leadData)
-          res.render("workbook/editLeadItem",{leadData:leadData,dropdowns: data});
+      Lead.findOne({ _id: itemId })
+        .then((leadData) => {
+          console.log(leadData);
+          res.render("workbook/editLeadItem", {
+            leadData: leadData,
+            dropdowns: data,
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -189,15 +182,12 @@ exports.getEditLeadItem=(req,res,next)=>{
     .catch((err) => {
       console.log(err);
     });
-  
-}
-
+};
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-exports.postEditLeadItem=(req,res,next)=>{
-  const dataId=req.body.dataId
+exports.postEditLeadItem = (req, res, next) => {
+  const dataId = req.body.dataId;
   const commonFields = {
     source: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
@@ -236,54 +226,54 @@ exports.postEditLeadItem=(req,res,next)=>{
   };
 
   Lead.findById(dataId)
-  .then((item)=>{
-    item.source = commonFields.source;
-    item.date = commonFields.date;
-    item.CM_First_Name = commonFields.CM_First_Name;
-    item.CM_Last_Name = commonFields.CM_Last_Name;
-    item.CM_Phone = commonFields.CM_Phone;
-    item.alternative_Number = commonFields.alternative_Number;
-    item.agent_name = commonFields.agent_name;
-    item.language = commonFields.language;
-    item.disease = commonFields.disease;
-    item.age = commonFields.age;
-    item.height = commonFields.height;
-    item.weight = commonFields.weight;
-    item.state = commonFields.state;
-    item.city = commonFields.city;
-    item.remark = commonFields.remark;
-    item.comment = commonFields.comment;
-    item.save()
-    return item
-  })
-  .then(()=>{
-    Workbook.findOne({dataId:dataId})
-    .then((item)=>{
+    .then((item) => {
       item.source = commonFields.source;
-    item.date = commonFields.date;
-    item.CM_First_Name = commonFields.CM_First_Name;
-    item.CM_Last_Name = commonFields.CM_Last_Name;
-    item.CM_Phone = commonFields.CM_Phone;
-    item.alternative_Number = commonFields.alternative_Number;
-    item.agent_name = commonFields.agent_name;
-    item.language = commonFields.language;
-    item.disease = commonFields.disease;
-    item.age = commonFields.age;
-    item.height = commonFields.height;
-    item.weight = commonFields.weight;
-    item.state = commonFields.state;
-    item.city = commonFields.city;
-    item.remark = commonFields.remark;
-    item.comment = commonFields.comment;
-    return item.save()
+      item.date = commonFields.date;
+      item.CM_First_Name = commonFields.CM_First_Name;
+      item.CM_Last_Name = commonFields.CM_Last_Name;
+      item.CM_Phone = commonFields.CM_Phone;
+      item.alternative_Number = commonFields.alternative_Number;
+      item.agent_name = commonFields.agent_name;
+      item.language = commonFields.language;
+      item.disease = commonFields.disease;
+      item.age = commonFields.age;
+      item.height = commonFields.height;
+      item.weight = commonFields.weight;
+      item.state = commonFields.state;
+      item.city = commonFields.city;
+      item.remark = commonFields.remark;
+      item.comment = commonFields.comment;
+      item.save();
+      return item;
     })
-    .then(result => {
-      console.log('UPDATED PRODUCT!');
-      res.redirect('/lead');
+    .then(() => {
+      Workbook.findOne({ dataId: dataId })
+        .then((item) => {
+          item.source = commonFields.source;
+          item.date = commonFields.date;
+          item.CM_First_Name = commonFields.CM_First_Name;
+          item.CM_Last_Name = commonFields.CM_Last_Name;
+          item.CM_Phone = commonFields.CM_Phone;
+          item.alternative_Number = commonFields.alternative_Number;
+          item.agent_name = commonFields.agent_name;
+          item.language = commonFields.language;
+          item.disease = commonFields.disease;
+          item.age = commonFields.age;
+          item.height = commonFields.height;
+          item.weight = commonFields.weight;
+          item.state = commonFields.state;
+          item.city = commonFields.city;
+          item.remark = commonFields.remark;
+          item.comment = commonFields.comment;
+          return item.save();
+        })
+        .then((result) => {
+          console.log("UPDATED PRODUCT!");
+          res.redirect("/lead");
+        });
     })
-  })
-  
-  .catch(err => {
-    console.log(err)
-  });
-}
+
+    .catch((err) => {
+      console.log(err);
+    });
+};
