@@ -10,10 +10,16 @@ const Papa = require("papaparse");
 
 const memoryStorage = multer.memoryStorage();
 const csv = require("csvtojson");
+const lead = require("../../models/lead");
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 exports.getAddLeadData = (req, res, next) => {
   res.render("workbook/addLeadData");
 };
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 exports.postAddLeadData = (req, res, next) => {
   const file = req.file;
@@ -41,7 +47,11 @@ exports.postAddLeadData = (req, res, next) => {
           CM_First_Name: item["CM First Name"],
           CM_Last_Name: item["CM Last Name"],
           CM_Phone: item["CM Phone"],
+<<<<<<< HEAD
           alternate_Phone: item["Alternate Number"],
+=======
+          alternative_Number: item["Alternate Number"],
+>>>>>>> 83f68cf8538f055cf98ff4efb86cdea671502947
           agent_name: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.agent_name
@@ -104,6 +114,9 @@ exports.postAddLeadData = (req, res, next) => {
     });
 };
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 exports.getLeadData = (req, res, next) => {
   Lead.find({ isDeleted: false })
     .then((data) => {
@@ -114,6 +127,10 @@ exports.getLeadData = (req, res, next) => {
       console.log(error);
     });
 };
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 exports.deleteLeadItem = (req, res, next) => {
   const dataId = req.body.dataId;
@@ -142,3 +159,131 @@ exports.deleteLeadItem = (req, res, next) => {
       res.status(500).send("An error occurred");
     });
 };
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+exports.getEditLeadItem=(req,res,next)=>{
+  const itemId= req.params.id
+  // console.log(itemId)
+  Dropdown.find()
+    .then((data) => {
+      // console.log(data)
+      data.map((item) => ({
+        name: item.name,
+        values: item.values,
+      }));
+      return data;
+    })
+    .then((data) => {
+      // console.log(data)
+      Lead.findOne({_id:itemId})
+        .then((leadData)=>{
+          console.log(leadData)
+          res.render("workbook/editLeadItem",{leadData:leadData,dropdowns: data});
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+}
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+exports.postEditLeadItem=(req,res,next)=>{
+  const dataId=req.body.dataId
+  const commonFields = {
+    source: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
+      value: req.body.Source,
+    },
+    date: Date.now(),
+    CM_First_Name: req.body.cmFirstName,
+    CM_Last_Name: req.body.cmLastName,
+    CM_Phone: req.body.cmphone,
+    alternative_Number: req.body.cmPhoneAlternateNumber,
+    agent_name: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
+      value: req.body["Agent Name"],
+    },
+    language: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.language_dd_id),
+      value: req.body.Language,
+    },
+    disease: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.disease_dd_id),
+      value: req.body.Disease,
+    },
+    age: req.body.age,
+    height: req.body.height,
+    weight: req.body.weight,
+    state: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.state_dd_id),
+      value: req.body.State,
+    },
+    city: req.body.city,
+    remark: {
+      dropdown_data: new mongoose.Types.ObjectId(req.body.remark_dd_id),
+      value: req.body.Remark,
+    },
+    comment: req.body.comment,
+  };
+
+  Lead.findById(dataId)
+  .then((item)=>{
+    item.source = commonFields.source;
+    item.date = commonFields.date;
+    item.CM_First_Name = commonFields.CM_First_Name;
+    item.CM_Last_Name = commonFields.CM_Last_Name;
+    item.CM_Phone = commonFields.CM_Phone;
+    item.alternative_Number = commonFields.alternative_Number;
+    item.agent_name = commonFields.agent_name;
+    item.language = commonFields.language;
+    item.disease = commonFields.disease;
+    item.age = commonFields.age;
+    item.height = commonFields.height;
+    item.weight = commonFields.weight;
+    item.state = commonFields.state;
+    item.city = commonFields.city;
+    item.remark = commonFields.remark;
+    item.comment = commonFields.comment;
+    item.save()
+    return item
+  })
+  .then(()=>{
+    Workbook.findOne({dataId:dataId})
+    .then((item)=>{
+      item.source = commonFields.source;
+    item.date = commonFields.date;
+    item.CM_First_Name = commonFields.CM_First_Name;
+    item.CM_Last_Name = commonFields.CM_Last_Name;
+    item.CM_Phone = commonFields.CM_Phone;
+    item.alternative_Number = commonFields.alternative_Number;
+    item.agent_name = commonFields.agent_name;
+    item.language = commonFields.language;
+    item.disease = commonFields.disease;
+    item.age = commonFields.age;
+    item.height = commonFields.height;
+    item.weight = commonFields.weight;
+    item.state = commonFields.state;
+    item.city = commonFields.city;
+    item.remark = commonFields.remark;
+    item.comment = commonFields.comment;
+    return item.save()
+    })
+    .then(result => {
+      console.log('UPDATED PRODUCT!');
+      res.redirect('/lead');
+    })
+  })
+  
+  .catch(err => {
+    console.log(err)
+  });
+}
