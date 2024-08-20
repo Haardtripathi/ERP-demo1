@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require("express");
 const path = require("path");
 const ejs = require("ejs");
@@ -10,19 +9,6 @@ const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
 require("dotenv").config();
-=======
-const express=require('express')
-const path=require('path')
-const ejs=require('ejs')
-const mongoose=require('mongoose')
-const bodyParser=require('body-parser')
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const csrf = require('csurf');
-const flash = require('connect-flash');
-const multer = require('multer');
-require("dotenv").config()
->>>>>>> 83f68cf8538f055cf98ff4efb86cdea671502947
 
 const memoryStorage = multer.memoryStorage(); // Store data in memory
 
@@ -37,11 +23,7 @@ const fileStorage = multer.diskStorage({
   },
 });
 
-<<<<<<< HEAD
 const MONGODB_URI = process.env.MONGODB_URI;
-=======
-const MONGODB_URI =process.env.MONGODB_URL
->>>>>>> 83f68cf8538f055cf98ff4efb86cdea671502947
 
 const adminRoutes = require("./routes/admin");
 const workbookRoutes = require("./routes/workbook/workbook");
