@@ -41,7 +41,7 @@ exports.postAddLeadData = (req, res, next) => {
           CM_First_Name: item["CM First Name"],
           CM_Last_Name: item["CM Last Name"],
           CM_Phone: item["CM Phone"],
-          alternate_Number: item["Alternate Number"],
+          alternate_Phone: item["Alternate Number"],
           agent_name: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.agent_name
@@ -52,31 +52,22 @@ exports.postAddLeadData = (req, res, next) => {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.language
             ),
-            value: item["Language"],
           },
           disease: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.disease
             ),
-            value: item["Disease"],
           },
-          age: item["Age"],
-          height: item["Height"],
-          weight: item["Weight"],
           state: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.state
             ),
-            value: item["State"],
           },
-          city: item["City/District"],
           remark: {
             dropdown_data: new mongoose.Types.ObjectId(
               staticDropdownData.remark
             ),
-            value: item["Remark"],
           },
-          comment: item["Comment"],
         };
 
         const leadData = new Lead(commonFields);
@@ -100,7 +91,7 @@ exports.postAddLeadData = (req, res, next) => {
       // Wait for all operations to complete
       Promise.all(savePromises)
         .then(() => {
-          res.redirect("/incoming"); // Redirect after processing all entries
+          res.redirect("/lead"); // Redirect after processing all entries
         })
         .catch((error) => {
           console.log("Error processing data:", error);
@@ -144,7 +135,7 @@ exports.deleteLeadItem = (req, res, next) => {
     })
     .then(() => {
       console.log("Deleted workbook item");
-      res.redirect("/workbook");
+      res.redirect("/lead");
     })
     .catch((error) => {
       console.error("Error during deletion:", error);

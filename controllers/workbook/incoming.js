@@ -35,7 +35,7 @@ exports.postAddIncomingData = (req, res, next) => {
     CM_First_Name: req.body.cmFirstName,
     CM_Last_Name: req.body.cmLastName,
     CM_Phone: req.body.cmphone,
-    alternate_Number: req.body.cmPhoneAlternateNumber,
+    alternate_Phone: req.body.cmPhoneAlternateNumber,
     agent_name: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
       value: req.body["Agent Name"],
@@ -128,7 +128,7 @@ exports.deleteIncomingItem = (req, res, next) => {
     })
     .then(() => {
       console.log("Deleted workbook item");
-      res.redirect("/workbook");
+      res.redirect("/incoming");
     })
     .catch((error) => {
       console.error("Error during deletion:", error);

@@ -38,7 +38,8 @@
               </li>
             </ul>
             <form class="d-flex" role="search">
-              <a class="btn btn-outline-success" href="/addWorkbookData">Add new</a>
+              <a class="btn btn-outline-success" href="/addIncomingData">Add Incoming</a>
+              <a class="btn btn-outline-success" href="/addLeadData">Add Lead</a>
             </form>
           </div>
         </div>
@@ -73,7 +74,8 @@
                                 <th>Source</th>
                                 <th>CM First Name</th>
                                 <th>CM Last Name</th>
-                                <th>CM Phone Alternate Number</th>
+                                <th>CM Phone</th>
+                                <th>Alternate Number</th>
                                 <th>Agent Name</th>
                                 <th>Language</th>
                                 <th>Disease</th>
@@ -96,6 +98,7 @@
                                     <td><%= d.CM_First_Name %></td>
                                     <td><%= d.CM_Last_Name %></td>
                                     <td><%= d.CM_Phone %></td>
+                                    <td><%= d.alternate_Phone %></td>
                                     <td><%= d.agent_name.value %></td>
                                     <td><%= d.language.value %></td>
                                     <td><%= d.disease.value %></td>
@@ -110,6 +113,7 @@
                                         <form action="/deleteWorkbookItem" method="POST">
                                             <input type="hidden" value="<%= d._id %>" name="itemId">
                                             <input type="hidden" value="<%= d.dataId %>" name="dataId">
+                                            <input type="hidden" value="<%= d.data.value %>" name="dataValue">
                                             <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
                                         </form>
                                     </td>
