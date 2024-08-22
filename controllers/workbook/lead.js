@@ -169,7 +169,6 @@ exports.getEditLeadItem = (req, res, next) => {
       // console.log(data)
       Lead.findOne({ _id: itemId })
         .then((leadData) => {
-          console.log(leadData);
           res.render("workbook/editLeadItem", {
             leadData: leadData,
             dropdowns: data,

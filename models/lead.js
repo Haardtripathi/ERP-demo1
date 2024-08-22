@@ -52,7 +52,6 @@ const leadSchema = new Schema(
         ref: "Dropdown",
       },
       value: {
-        default: "-",
         type: String,
       },
       //required:true,
@@ -64,25 +63,21 @@ const leadSchema = new Schema(
         ref: "Dropdown",
       },
       value: {
-        default: "-",
         type: String,
       },
       //required:true,
     },
     age: {
-      default: "-",
       type: String,
-      required: true,
+      // required: true,
     },
     height: {
-      default: "-",
       type: String,
-      required: true,
+      // required: true,
     },
     weight: {
-      default: "-",
       type: String,
-      required: true,
+      // required: true,
     },
     state: {
       type: Object,
@@ -91,15 +86,13 @@ const leadSchema = new Schema(
         ref: "Dropdown",
       },
       value: {
-        default: "-",
         type: String,
       },
       //required:true,
     },
     city: {
-      default: "-",
       type: String,
-      required: true,
+      // required: true,
     },
     remark: {
       type: Object,
@@ -108,15 +101,13 @@ const leadSchema = new Schema(
         ref: "Dropdown",
       },
       value: {
-        default: "-",
         type: String,
       },
       //required:true,
     },
     comment: {
-      default: "-",
       type: String,
-      required: true,
+      // required: true,
     },
     isDeleted: {
       type: Boolean,
