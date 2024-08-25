@@ -29,6 +29,7 @@ const adminRoutes = require("./routes/admin");
 const workbookRoutes = require("./routes/workbook/workbook");
 const incomingRoutes = require("./routes/workbook/incoming");
 const leadRoutes = require("./routes/workbook/lead");
+const pendingRoutes = require("./routes/section2/pending");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/admin", adminRoutes);
 app.use(workbookRoutes);
 app.use(incomingRoutes);
 app.use(leadRoutes);
+app.use(pendingRoutes);
 
 mongoose
   .connect(MONGODB_URI)
