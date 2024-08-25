@@ -31,6 +31,132 @@ const pendingSchema = new Schema({
       type: String,
     },
   },
+  sale_type: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  agent_name: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  CM_First_Name: {
+    type: String,
+  },
+  CM_Last_Name: {
+    type: String,
+  },
+  CM_Phone: {
+    type: Number,
+  },
+  Alternate_Number: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  status: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  comment: {
+    type: String,
+  },
+  shipment_type: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  address: {
+    type: String,
+  },
+  post_type: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  post: {
+    type: String,
+  },
+  subDistrict_Taluka: {
+    type: String,
+  },
+  City_District: {
+    type: String,
+  },
+  pincode: {
+    type: Number,
+  },
+  state: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  disease: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  amount: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  products: {
+    type: Object,
+    dropdown_data: {
+      type: Schema.Types.ObjectId,
+      ref: "Dropdown",
+    },
+    value: {
+      type: String,
+    },
+  },
+  quantity: {
+    type: Number,
+  },
 });
 
 pendingSchema.pre("save", async function (next) {
