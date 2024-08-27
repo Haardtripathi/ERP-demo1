@@ -79,7 +79,13 @@
                         <tbody>
                             <% for ( let d of data) { %>
                                 <tr>
-                                    <td><a href="/addToPending/<%= d._id %>" class="btn-success">ADD</a></td>
+                                    <td>
+                                      <form action="/shiftToPending" method="post">
+                                        <input type="hidden" value="<%= d._id %>" name="itemId">
+                                        <input type="hidden" value="<%= d.dataId %>" name="dataId">
+                                        <input type="hidden" value="<%= d.data.value %>" name="dataValue">
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">ADD</button>
+                                      </form>
                                     <td><%= d.data.value %></td>
                                     <td><%= d.date %></td>
                                     <td><%= d.source.value %></td>

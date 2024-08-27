@@ -18,7 +18,7 @@ const pendingSchema = new Schema(
       }),
     },
     time: {
-      type: Date,
+      type: String,
       required: true,
       default: new Date().toLocaleTimeString("en-US", { hour12: false }),
     },
@@ -62,7 +62,7 @@ const pendingSchema = new Schema(
       type: Number,
     },
     Alternate_Number: {
-      type: String,
+      type: Number,
     },
     email: {
       type: String,
@@ -162,15 +162,11 @@ const pendingSchema = new Schema(
       type: Boolean,
       default: 0, // Set default to 0 (closed)
     },
-    status: {
-      type: String,
-      default: 1, // Set default to 1 (active)
-    },
   },
   { timestamps: true }
 );
 
-pendingSchema.pre("save", async function (next) {
+pendingSchema.pre("validate", async function (next) {
   if (!this.ref) {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
