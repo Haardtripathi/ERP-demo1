@@ -54,52 +54,62 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Ref</th>
                                 <th>Date</th>
-                                <th>Source</th>
+                                <th>Time</th>
+                                <th>Payment Type</th>
+                                <th>Sale Type</th>
+                                <th>Agent Name</th>
                                 <th>CM First Name</th>
                                 <th>CM Last Name</th>
                                 <th>CM Phone</th>
                                 <th>Alternative Number</th>
-                                <th>Agent Name</th>
-                                <th>Language</th>
-                                <th>Disease</th>
-                                <th>Age</th>
-                                <th>Height</th>
-                                <th>Weight</th>
-                                <th>State</th>
-                                <th>City/District</th>
-                                <th>Remark</th>
+                                <th>Email</th>
+                                <th>Status</th>
                                 <th>Comment</th>
-                                <th>Action</th>
+                                <th>Shipment Type</th>
+                                <th>Address</th>
+                                <th>Post Type</th>
+                                <th>Post</th>
+                                <th>Sub District / Taluka</th>
+                                <th>City / District</th>
+                                <th>Pincode</th>
+                                <th>State</th>
+                                <th>Disease</th>
+                                <th>Amount</th>
+                                <th>Products</th>
+                                <th>Quantity</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <% for ( let d of data) { %>
+                            <% for ( let d of data) { %>
                                 <tr>
-                                    <td><%= d.createdAt %></td>
-                                    <td><%= d.source.value %></td>
+                                    <td><%= d.ref %></td>
+                                    <td><%= d.date %></td>
+                                    <td><%= d.time %></td>
+                                    <td><%= d.payment_type.value %></td>
+                                    <td><%= d.sale_type.value %></td>
+                                    <td><%= d.agent_name.value %></td>
                                     <td><%= d.CM_First_Name %></td>
                                     <td><%= d.CM_Last_Name %></td>
                                     <td><%= d.CM_Phone %></td>
-                                    <td><%= d.alternate_Phone %></td>
-                                    <td><%= d.alternative_Number %></td>
-                                    <td><%= d.agent_name.value %></td>
-                                    <td><%= d.language.value %></td>
-                                    <td><%= d.disease.value %></td>
-                                    <td><%= d.age %></td>
-                                    <td><%= d.height %></td>
-                                    <td><%= d.weight %></td>
-                                    <td><%= d.state.value %></td>
-                                    <td><%= d.city %></td>
-                                    <td><%= d.remark.value%></td>
+                                    <td><%= d.Alternate_Number %></td>
+                                    <td><%= d.email %></td>
+                                    <td><%= d.status.value %></td>
                                     <td><%= d.comment %></td>
-                                    <td>
-                                        <form action="/deleteIncomingItem" method="POST">
-                                            <input type="hidden" value="<%= d._id %>" name="dataId">
-                                            <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr> -->
+                                    <td><%= d.shipment_type.value %></td>
+                                    <td><%= d.address %></td>
+                                    <td><%= d.post_type.value %></td>
+                                    <td><%= d.post %></td>
+                                    <td><%= d.subDistrict_Taluka %></td>
+                                    <td><%= d.City_District %></td>
+                                    <td><%= d.pincode %></td>
+                                    <td><%= d.state.value %></td>
+                                    <td><%= d.disease.value %></td>
+                                    <td><%= d.amount.value %></td>
+                                    <td><%= d.products.value %></td>
+                                    <td><%= d.quantity %></td>
+                                </tr>
                             <% } %>
                         </tbody>
                     </table>

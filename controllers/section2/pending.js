@@ -56,7 +56,7 @@ exports.postShiftToPendingData = (req, res, next) => {
       post: "-",
       subDistrict_Taluka: "-",
       City_District: data.city,
-      //   pincode: "-",
+      pincode: "-",
       state: {
         dropdown_data: data.state.dropdown_data,
         value: data.state.value,
@@ -73,12 +73,12 @@ exports.postShiftToPendingData = (req, res, next) => {
         dropdown_data: new mongoose.Types.ObjectId("66cb7b9c2d2b09775bd57dfc"),
         value: "-",
       },
-      //quantity:0,
+      quantity: "-",
     });
     pendingData
       .save()
       .then((result) => {
-        console.log(result);
+        console.log("Added to pending");
       })
       .catch((err) => {
         console.log(err);

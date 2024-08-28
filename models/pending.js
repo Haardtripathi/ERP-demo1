@@ -113,7 +113,7 @@ const pendingSchema = new Schema(
       type: String,
     },
     pincode: {
-      type: Number,
+      type: String,
     },
     state: {
       type: Object,
@@ -156,7 +156,7 @@ const pendingSchema = new Schema(
       },
     },
     quantity: {
-      type: Number,
+      type: String,
     },
     isDeleted: {
       type: Boolean,
