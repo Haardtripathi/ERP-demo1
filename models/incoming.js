@@ -17,7 +17,12 @@ const incomingSchema = new Schema(
     },
     date: {
       type: Schema.Types.Date,
-      default: Date.now(),
+      default: new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
+      immutable: true,
     },
     CM_First_Name: {
       type: String,

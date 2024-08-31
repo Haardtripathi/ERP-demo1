@@ -8,6 +8,7 @@ const pendingSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      immutable: true
     },
     date: {
       type: Schema.Types.Date,
@@ -15,12 +16,14 @@ const pendingSchema = new Schema(
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
+        immutable: true
       }),
     },
     time: {
       type: String,
       required: true,
       default: new Date().toLocaleTimeString("en-US", { hour12: false }),
+      immutable: true
     },
     payment_type: {
       type: Object,

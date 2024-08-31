@@ -10,6 +10,7 @@
   overflow-y: auto;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
+  /* width:150px; */
 }
 
 .sidebar .nav-link {

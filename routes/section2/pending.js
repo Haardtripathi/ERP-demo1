@@ -7,4 +7,5 @@ router.get("/pending", pendingController.getPendingData);
 
 router.post("/shiftToPending", pendingController.postShiftToPendingData);
 
+router.get("/pendingForm/:id", pendingController.getPendingForm);
 module.exports = router;

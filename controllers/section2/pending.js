@@ -85,3 +85,14 @@ exports.postShiftToPendingData = (req, res, next) => {
       });
   });
 };
+
+exports.getPendingForm = (req, res, next) => {
+  const id = req.params.id;
+  Pending.find({ _id: id })
+    .then((data) => {
+      res.render("section2/pendingForm", { data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
