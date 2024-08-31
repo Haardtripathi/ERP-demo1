@@ -54,6 +54,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Edit</th>
                                 <th>Ref</th>
                                 <th>Date</th>
                                 <th>Time</th>
@@ -84,6 +85,11 @@
                         <tbody>
                             <% for ( let d of data) { %>
                                 <tr>
+                                  <td>
+                                    <form action="/pendingForm/<%= d._id %>" method="post">
+                                      <button class="btn btn-outline-danger btn-sm">Edit</button>
+                                    </form>
+                                  </td>
                                     <td><%= d.ref %></td>
                                     <td><%= d.date %></td>
                                     <td><%= d.time %></td>
