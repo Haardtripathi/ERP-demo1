@@ -85,11 +85,7 @@
                         <tbody>
                             <% for ( let d of data) { %>
                                 <tr>
-                                  <td>
-                                    <form action="/pendingForm/<%= d._id %>" method="post">
-                                      <button class="btn btn-outline-danger btn-sm">Edit</button>
-                                    </form>
-                                  </td>
+                                    <td><a href="/pendingForm/<%= d._id %>" class="btn btn-outline-danger btn-sm">Edit</a></td>
                                     <td><%= d.ref %></td>
                                     <td><%= d.date %></td>
                                     <td><%= d.time %></td>

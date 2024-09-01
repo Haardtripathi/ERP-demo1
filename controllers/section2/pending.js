@@ -79,6 +79,32 @@ exports.postShiftToPendingData = (req, res, next) => {
       .save()
       .then((result) => {
         console.log("Added to pending");
+        Workbook.deleteOne({ _id: itemId })
+          .then((result) => {
+            console.log("deleted in workbook");
+          })
+          .then((res) => {
+            if (dataValue == "Lead") {
+              Lead.deleteOne({ _id: dataId })
+                .then((result) => {
+                  console.log("deleted in Lead");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              Incoming.deleteOne({ _id: dataId })
+                .then((result) => {
+                  console.log("deleted in Incoming");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
+      })
+      .then((result) => {
+        res.redirect("/pending");
       })
       .catch((err) => {
         console.log(err);
@@ -89,8 +115,49 @@ exports.postShiftToPendingData = (req, res, next) => {
 exports.getPendingForm = (req, res, next) => {
   const id = req.params.id;
   Pending.find({ _id: id })
+    .populate({
+      path: "payment_type.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "sale_type.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "agent_name.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "status.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "shipment_type.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "post_type.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "state.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "disease.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "amount.dropdown_data",
+      model: "Dropdown",
+    })
+    .populate({
+      path: "products.dropdown_data",
+      model: "Dropdown",
+    })
     .then((data) => {
-      res.render("section2/pendingForm", { data: data });
+      console.log(data[0].payment_type.dropdown_data);
+      res.render("section2/pendingForm", { data: data[0] });
     })
     .catch((err) => {
       console.log(err);
