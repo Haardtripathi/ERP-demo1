@@ -19,8 +19,9 @@ const workbookSchema = new Schema(
       type: Schema.Types.ObjectId,
     },
     date: {
-      type: Schema.Types.Date,
-      default: Date.now(),
+      type: String,
+      default: new Date().toISOString().split("T")[0],
+      immutable: true, // This will prevent the date from being modified
     },
 
     source: {
@@ -32,7 +33,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     date: {
       type: Schema.Types.Date,
@@ -67,7 +68,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     language: {
       type: Object,
@@ -78,7 +79,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     disease: {
       type: Object,
@@ -89,7 +90,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     age: {
       type: String,
@@ -112,7 +113,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     city: {
       type: String,
@@ -127,7 +128,7 @@ const workbookSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     comment: {
       type: String,

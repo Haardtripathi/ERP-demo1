@@ -13,16 +13,12 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     date: {
-      type: Schema.Types.Date,
-      default: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }),
-      immutable:true
+      type: String,
+      default: new Date().toISOString().split("T")[0],
+      immutable: true, // This will prevent the date from being modified
     },
     CM_First_Name: {
       type: String,
@@ -48,7 +44,7 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     language: {
       type: Object,
@@ -59,7 +55,7 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     disease: {
       type: Object,
@@ -70,7 +66,7 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     age: {
       type: String,
@@ -93,7 +89,7 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     city: {
       type: String,
@@ -108,7 +104,7 @@ const leadSchema = new Schema(
       value: {
         type: String,
       },
-      //required:true,
+      //,
     },
     comment: {
       type: String,

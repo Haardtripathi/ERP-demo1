@@ -11,13 +11,9 @@ const pendingSchema = new Schema(
       immutable: true,
     },
     date: {
-      type: Schema.Types.Date,
-      default: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        immutable: true,
-      }),
+      type: String,
+      default: new Date().toISOString().split("T")[0],
+      immutable: true, // This will prevent the date from being modified
     },
     time: {
       type: String,

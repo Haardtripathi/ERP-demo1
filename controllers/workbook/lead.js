@@ -41,7 +41,6 @@ exports.postAddLeadData = (req, res, next) => {
             ),
             value: item["Source"],
           },
-          date: Date.now(),
           CM_First_Name: item["CM First Name"],
           CM_Last_Name: item["CM Last Name"],
           CM_Phone: item["CM Phone"],
@@ -83,8 +82,8 @@ exports.postAddLeadData = (req, res, next) => {
               dropdown_data: new mongoose.Types.ObjectId(req.body.data_dd_id), // Assuming data_dd_id is part of the request
               value: "Lead",
             },
-            date: Date.now(),
             dataId: savedLead._id,
+            date: savedLead.date,
             ...commonFields,
           });
 
@@ -192,7 +191,6 @@ exports.postEditLeadItem = (req, res, next) => {
       dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
       value: req.body.Source,
     },
-    date: Date.now(),
     CM_First_Name: req.body.cmFirstName,
     CM_Last_Name: req.body.cmLastName,
     CM_Phone: req.body.cmphone,
@@ -227,7 +225,6 @@ exports.postEditLeadItem = (req, res, next) => {
   Lead.findById(dataId)
     .then((item) => {
       item.source = commonFields.source;
-      item.date = commonFields.date;
       item.CM_First_Name = commonFields.CM_First_Name;
       item.CM_Last_Name = commonFields.CM_Last_Name;
       item.CM_Phone = commonFields.CM_Phone;
@@ -249,7 +246,6 @@ exports.postEditLeadItem = (req, res, next) => {
       Workbook.findOne({ dataId: dataId })
         .then((item) => {
           item.source = commonFields.source;
-          item.date = commonFields.date;
           item.CM_First_Name = commonFields.CM_First_Name;
           item.CM_Last_Name = commonFields.CM_Last_Name;
           item.CM_Phone = commonFields.CM_Phone;

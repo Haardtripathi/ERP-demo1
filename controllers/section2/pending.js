@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Dropdown = require("../../models/dropdowns");
 const Workbook = require("../../models/workbook");
 const Incoming = require("../../models/incoming");
+const Lead = require("../../models/lead");
 const Pending = require("../../models/pending");
 
 exports.getPendingData = (req, res, next) => {
@@ -24,11 +25,9 @@ exports.postShiftToPendingData = (req, res, next) => {
     const pendingData = new Pending({
       payment_type: {
         dropdown_data: new mongoose.Types.ObjectId("66ca09f9efcae9d04adb3610"),
-        value: "-",
       },
       sale_type: {
         dropdown_data: new mongoose.Types.ObjectId("66ca09c6efcae9d04adb360e"),
-        value: "-",
       },
       agent_name: {
         dropdown_data: data.agent_name.dropdown_data,
@@ -38,25 +37,17 @@ exports.postShiftToPendingData = (req, res, next) => {
       CM_Last_Name: data.CM_Last_Name,
       CM_Phone: data.CM_Phone,
       Alternate_Number: data.alternate_Phone,
-      email: "-",
       status: {
         dropdown_data: new mongoose.Types.ObjectId("66cd80b921c654779763c616"),
-        value: "-",
       },
       comment: data.comment,
       shipment_type: {
         dropdown_data: new mongoose.Types.ObjectId("66ca0a39efcae9d04adb3612"),
-        value: "-",
       },
-      address: "-",
       post_type: {
         dropdown_data: new mongoose.Types.ObjectId("66ca0abfefcae9d04adb3616"),
-        value: "-",
       },
-      post: "-",
-      subDistrict_Taluka: "-",
       City_District: data.city,
-      pincode: "-",
       state: {
         dropdown_data: data.state.dropdown_data,
         value: data.state.value,
@@ -67,13 +58,10 @@ exports.postShiftToPendingData = (req, res, next) => {
       },
       amount: {
         dropdown_data: new mongoose.Types.ObjectId("66cb7b392d2b09775bd57dfa"),
-        value: "-",
       },
       products: {
         dropdown_data: new mongoose.Types.ObjectId("66cb7b9c2d2b09775bd57dfc"),
-        value: "-",
       },
-      quantity: "-",
     });
     pendingData
       .save()
@@ -156,7 +144,9 @@ exports.getPendingForm = (req, res, next) => {
       model: "Dropdown",
     })
     .then((data) => {
-      console.log(data[0].payment_type.dropdown_data);
+      // console.log("data");
+
+      // console.log(data);
       res.render("section2/pendingForm", { data: data[0] });
     })
     .catch((err) => {
@@ -164,4 +154,90 @@ exports.getPendingForm = (req, res, next) => {
     });
 };
 
-exports.postEditPending = (req, res, next) => {};
+exports.postEditPending = (req, res, next) => {
+  const payment_type = req.body.payment_type;
+  const sale_type = req.body.sale_type;
+  const agent_name = req.body.agent_name;
+  const CM_First_Name = req.body.CM_First_Name;
+  const CM_Last_Name = req.body.CM_Last_Name;
+  const CM_Phone = req.body.CM_Phone;
+  const Alternate_Number = req.body.Alternate_Number;
+  const email = req.body.email;
+  const status = req.body.status;
+  const comment = req.body.comment;
+  const shipment_type = req.body.shipment_type;
+  const address = req.body.address;
+  const post_type = req.body.post_type;
+  const post = req.body.post;
+  const subDistrict_Taluka = req.body.subDistrict_Taluka;
+  const City_District = req.body.City_District;
+  const pincode = req.body.pincode;
+  const state = req.body.state;
+  const disease = req.body.disease;
+  const amount = req.body.amount;
+  const products = req.body.products;
+  const quantity = req.body.quantity;
+
+  const dataId = req.body.dataId;
+
+  Pending.findById(dataId)
+    .then((item) => {
+      item.payment_type.value = payment_type;
+      item.markModified("payment_type");
+      item.sale_type.value = sale_type;
+      item.markModified("sale_type");
+      item.agent_name.value = agent_name;
+      item.markModified("agent_name");
+      item.CM_First_Name = CM_First_Name;
+      item.markModified("CM_First_Name");
+      item.CM_Last_Name = CM_Last_Name;
+      item.markModified("CM_Last_Name");
+      item.CM_Phone = CM_Phone;
+      item.markModified("CM_Phone");
+      item.Alternate_Number = Alternate_Number;
+      item.markModified("Alternate_Number");
+      item.email = email;
+      item.markModified("email");
+      item.status.value = status;
+      item.markModified("status");
+      item.comment = comment;
+      item.markModified("comment");
+      item.shipment_type.value = shipment_type;
+      item.markModified("shipment_type");
+      item.address = address;
+      item.markModified("address");
+      item.post_type.value = post_type;
+      item.markModified("post_type");
+      item.post = post;
+      item.markModified("post");
+      item.subDistrict_Taluka = subDistrict_Taluka;
+      item.markModified("subDistrict_Taluka");
+      item.City_District = City_District;
+      item.markModified("City_District");
+      item.pincode = pincode;
+      item.markModified("pincode");
+      item.state.value = state;
+      item.markModified("state");
+      item.disease.value = disease;
+      item.markModified("disease");
+      item.amount.value = amount;
+      item.markModified("amount");
+      item.products.value = products;
+      item.markModified("products");
+      item.quantity = quantity;
+      item.markModified("quantity");
+      console.log(item);
+      return item.save();
+    })
+    .then((result) => {
+      console.log("RESULT:");
+
+      console.log(result);
+      console.log("Update successful:");
+      res.redirect("/pending");
+    })
+    .catch((error) => {
+      console.error("Error updating document:", error);
+      res.status(500).send({ message: "Error updating document", error });
+    });
+};

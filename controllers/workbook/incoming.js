@@ -31,7 +31,6 @@ exports.postAddIncomingData = (req, res, next) => {
       dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
       value: req.body.Source,
     },
-    date: Date.now(),
     CM_First_Name: req.body.cmFirstName,
     CM_Last_Name: req.body.cmLastName,
     CM_Phone: req.body.cmphone,
@@ -78,7 +77,6 @@ exports.postAddIncomingData = (req, res, next) => {
           dropdown_data: new mongoose.Types.ObjectId(req.body.data_dd_id),
           value: "Incoming",
         },
-        date: Date.now(),
         dataId: DataId,
         ...commonFields,
       });

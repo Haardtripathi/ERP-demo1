@@ -7,21 +7,31 @@
 <link rel="stylesheet" href="/css/addWorkbookData.css">
 </head>
 <body>
-  <form method="POST" action="/">
+  <form method="POST" action="/editPending">
     <h1>Edit Pending Form</h1>
       <div class="form-group">
         <label for="payment_type">Payment Type</label>
     
           <select name="payment_type">
+            <% if(data.payment_type.value){ %>
+              <option value="<%= data.payment_type.value %>"><%= data.payment_type.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
                 <% for (const value of data.payment_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
-                <% } %>
+            <% } %>
           </select>
       </div>
       <div class="form-group">
         <label for="sale_type">Sale Type</label>
     
           <select name="sale_type">
+            <% if(data.sale_type.value){ %>
+              <option value="<%= data.sale_type.value %>"><%= data.sale_type.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
                 <% for (const value of data.sale_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
                 <% } %>
@@ -31,6 +41,11 @@
       <div class="form-group">
         <label for="source">Agent Name:</label>
           <select name="agent_name">
+            <% if(data.agent_name.value){ %>
+              <option value="<%= data.agent_name.value %>"><%= data.agent_name.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
                 <% for (const value of data.agent_name.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
                 <% } %>
@@ -38,36 +53,168 @@
       </div>
     
       <div class="form-group">
-        <label for="cm_firstname">CM First Name</label>
-          <input type="text" name="cmFirstName" value="<%= data.CM_First_Name %>"></input>
+        <label for="CM_First_Name">CM First Name</label>
+          <input type="text" name="CM_First_Name" value="<%= data.CM_First_Name %>"></input>
       </div>
     
       <div class="form-group">
-        <label for="cm_lastname">CM Last Name</label>
-          <input type="text" name="cmLastName" value="<%= data.CM_Last_Name %>"></input>
+        <label for="CM_Last_Name">CM Last Name</label>
+          <input type="text" name="CM_Last_Name" value="<%= data.CM_Last_Name %>"></input>
       </div>
     
       <div class="form-group">
-        <label for="cm_phone">CM Phone</label>
-          <input type="number" name="cmphone" value="<%= data.CM_Phone %>"></input>
+        <label for="CM_Phone">CM Phone</label>
+          <input type="number" name="CM_Phone" value="<%= data.CM_Phone %>"></input>
       </div>
     
       <div class="form-group">
-        <label for="cm_altername_number">CM Alternate Number</label>
-          <input type="number" name="cmPhoneAlternateNumber" value="<%= data.Alternate_Number %>"></input>
+        <label for="Alternate_Number">CM Alternate Number</label>
+          <input type="number" name="Alternate_Number" value="<%= data.Alternate_Number %>"></input>
       </div>
+
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
           <input type="email" name="email"></input>
       </div>
+
       <div class="form-group">
         <label for="source">Status:</label>
           <select name="status">
+            <% if(data.status.value){ %>
+              <option value="<%= data.status.value %>"><%= data.status.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
                 <% for (const value of data.status.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
                 <% } %>
           </select>
       </div>
+
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+          <input type="text" name="comment"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="shipment_type">Shipment Type:</label>
+          <select name="shipment_type">
+            <% if(data.shipment_type.value){ %>
+              <option value="<%= data.shipment_type.value %>"><%= data.shipment_type.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+                <% for (const value of data.shipment_type.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address:</label>
+          <input type="textarea" name="address"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="post_type">Post Type:</label>
+          <select name="post_type">
+            <% if(data.post_type.value){ %>
+              <option value="<%= data.post_type.value %>"><%= data.post_type.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+                <% for (const value of data.post_type.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="post">Post:</label>
+          <input type="text" name="post"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="subDistrict_Taluka">SubDistrict/Taluka:</label>
+          <input type="text" name="subDistrict_Taluka"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="City_District">City/District:</label>
+          <input type="text" name="City_District"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="pincode">Pincode:</label>
+          <input type="text" name="pincode"></input>
+      </div>
+
+      <div class="form-group">
+        <label for="state">State:</label>
+          <select name="state">
+            <% if(data.state.value){ %>
+              <option value="<%= data.state.value %>"><%= data.state.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+            <option value="<%= data.state.value %>"><%= data.state.value %></option>
+                <% for (const value of data.state.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="disease">Disease:</label>
+          <select name="disease">
+            <% if(data.disease.value){ %>
+              <option value="<%= data.disease.value %>"><%= data.disease.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+            <option value="<%= data.disease.value %>"><%= data.disease.value %></option>
+                <% for (const value of data.disease.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+          <select name="amount">
+            <% if(data.amount.value){ %>
+              <option value="<%= data.amount.value %>"><%= data.amount.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+                <% for (const value of data.amount.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <label for="products">Products:</label>
+          <select name="products">
+            <% if(data.products.value){ %>
+              <option value="<%= data.products.value %>"><%= data.products.value %></option>
+            <% }else{ %>
+              <option value=""></option>
+            <% } %>
+                <% for (const value of data.products.dropdown_data.values) { %>
+                  <option value="<%= value %>" name="<%= value %>"><%= value %></option>
+                <% } %>
+          </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+          <input type="text" name="quantity"></input>
+      </div>
+
+      <input type="hidden" value="<%= data._id %>" name="dataId">
+
+      <button type="submit">Edit</button>
   </form>
 </body>
 </html>
