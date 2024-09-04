@@ -29,7 +29,7 @@ const leadSchema = new Schema(
       required: true,
     },
     CM_Phone: {
-      type: String,
+      type: Number,
       required: true,
     },
     alternate_Phone: {
@@ -69,15 +69,15 @@ const leadSchema = new Schema(
       //,
     },
     age: {
-      type: String,
+      type: Number,
       // required: true,
     },
     height: {
-      type: String,
+      type: Number,
       // required: true,
     },
     weight: {
-      type: String,
+      type: Number,
       // required: true,
     },
     state: {

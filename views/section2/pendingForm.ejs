@@ -16,7 +16,7 @@
             <% if(data.payment_type.value){ %>
               <option value="<%= data.payment_type.value %>"><%= data.payment_type.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.payment_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -30,7 +30,7 @@
             <% if(data.sale_type.value){ %>
               <option value="<%= data.sale_type.value %>"><%= data.sale_type.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.sale_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -44,7 +44,7 @@
             <% if(data.agent_name.value){ %>
               <option value="<%= data.agent_name.value %>"><%= data.agent_name.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.agent_name.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -83,7 +83,7 @@
             <% if(data.status.value){ %>
               <option value="<%= data.status.value %>"><%= data.status.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.status.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -102,7 +102,7 @@
             <% if(data.shipment_type.value){ %>
               <option value="<%= data.shipment_type.value %>"><%= data.shipment_type.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.shipment_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -121,7 +121,7 @@
             <% if(data.post_type.value){ %>
               <option value="<%= data.post_type.value %>"><%= data.post_type.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.post_type.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -155,7 +155,7 @@
             <% if(data.state.value){ %>
               <option value="<%= data.state.value %>"><%= data.state.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
             <option value="<%= data.state.value %>"><%= data.state.value %></option>
                 <% for (const value of data.state.dropdown_data.values) { %>
@@ -170,7 +170,7 @@
             <% if(data.disease.value){ %>
               <option value="<%= data.disease.value %>"><%= data.disease.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
             <option value="<%= data.disease.value %>"><%= data.disease.value %></option>
                 <% for (const value of data.disease.dropdown_data.values) { %>
@@ -185,7 +185,7 @@
             <% if(data.amount.value){ %>
               <option value="<%= data.amount.value %>"><%= data.amount.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.amount.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>
@@ -199,7 +199,7 @@
             <% if(data.products.value){ %>
               <option value="<%= data.products.value %>"><%= data.products.value %></option>
             <% }else{ %>
-              <option value=""></option>
+              <option value="">Select...</option>
             <% } %>
                 <% for (const value of data.products.dropdown_data.values) { %>
                   <option value="<%= value %>" name="<%= value %>"><%= value %></option>

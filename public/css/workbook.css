@@ -1,3 +1,11 @@
+/* Base styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow: auto; /* Ensure the page can scroll */
+}
+
 /* Sidebar styles */
 .sidebar {
   position: fixed;
@@ -10,15 +18,15 @@
   overflow-y: auto;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
-  /* width:150px; */
-}
-body, html {
-  overflow: auto; /* Ensure the page can scroll */
+  width: 13%; /* Fixed width for larger screens */
+  transition: width 0.3s ease; /* Smooth transition for resizing */
 }
 
 .sidebar .nav-link {
   font-weight: 600;
   color: #333;
+  padding: 10px 15px;
+  display: block;
 }
 
 .sidebar .nav-link:hover {
@@ -27,20 +35,34 @@ body, html {
 
 /* Main content styles */
 .main-content {
-  margin-left: 200px; /* Adjust this value to match your sidebar width */
-  padding: 10px;
+  padding: 20px;
+  margin-left: 13%; /* Adjust this value to match your sidebar width */
+  transition: margin-left 0.3s ease; /* Smooth transition for resizing */
 }
 
 /* Responsive adjustments */
-@media (max-width: 767.98px) {
+@media (max-width: 992px) {
   .sidebar {
-      position: static;
-      height: auto;
-      padding-bottom: 20px;
+    width: 200px; /* Slightly wider sidebar on medium screens */
   }
 
   .main-content {
-      margin-left: 0;
+    margin-left: 200px; /* Adjust to match sidebar width */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    position: relative;
+    width: 100%; /* Sidebar takes full width */
+    height: auto;
+    padding: 10px 0;
+    border-right: none; /* Remove border for better look */
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 20px;
   }
 }
 
@@ -60,6 +82,8 @@ body, html {
   left: 0;
   right: 0;
   z-index: 1030;
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
 }
 
 body {

@@ -168,6 +168,7 @@ exports.getEditLeadItem = (req, res, next) => {
       // console.log(data)
       Lead.findOne({ _id: itemId })
         .then((leadData) => {
+          console.log(leadData);
           res.render("workbook/editLeadItem", {
             leadData: leadData,
             dropdowns: data,
@@ -189,7 +190,7 @@ exports.postEditLeadItem = (req, res, next) => {
   const commonFields = {
     source: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.source_dd_id),
-      value: req.body.Source,
+      value: req.body.source,
     },
     CM_First_Name: req.body.cmFirstName,
     CM_Last_Name: req.body.cmLastName,
@@ -197,27 +198,27 @@ exports.postEditLeadItem = (req, res, next) => {
     alternative_Number: req.body.cmPhoneAlternateNumber,
     agent_name: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.agent_dd_id),
-      value: req.body["Agent Name"],
+      value: req.body.agent_name,
     },
     language: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.language_dd_id),
-      value: req.body.Language,
+      value: req.body.language,
     },
     disease: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.disease_dd_id),
-      value: req.body.Disease,
+      value: req.body.disease,
     },
     age: req.body.age,
     height: req.body.height,
     weight: req.body.weight,
     state: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.state_dd_id),
-      value: req.body.State,
+      value: req.body.state,
     },
     city: req.body.city,
     remark: {
       dropdown_data: new mongoose.Types.ObjectId(req.body.remark_dd_id),
-      value: req.body.Remark,
+      value: req.body.remark,
     },
     comment: req.body.comment,
   };
@@ -237,6 +238,7 @@ exports.postEditLeadItem = (req, res, next) => {
       item.weight = commonFields.weight;
       item.state = commonFields.state;
       item.city = commonFields.city;
+      console.log(item.city);
       item.remark = commonFields.remark;
       item.comment = commonFields.comment;
       item.save();
@@ -260,6 +262,7 @@ exports.postEditLeadItem = (req, res, next) => {
           item.city = commonFields.city;
           item.remark = commonFields.remark;
           item.comment = commonFields.comment;
+          console.log(item);
           return item.save();
         })
         .then((result) => {
